@@ -1,29 +1,19 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+  <div id="app" class="flex min-h-screen flex-col overflow-x-hidden">
+    <nav :style="{backgroundColor: color}" ref="nav">
+      <div class="flex items-center justify-center relative h-16 md:h-32 mx-4 md:mx-8">
+        Test
+      </div>
+    </nav>
+    <router-view class="flex-1"/>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+<script lang="ts">
+  import { Component, Vue } from 'vue-property-decorator';
+
+  @Component
+  export default class Home extends Vue {
+      color: String = '#ddd';
   }
-}
-</style>
+</script>
