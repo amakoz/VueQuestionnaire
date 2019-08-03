@@ -1,7 +1,7 @@
 <template>
   <div class="flex">
     <main>
-        <img alt="Vue logo" src="../assets/logo.png">
+        Home
     </main>
   </div>
 </template>
