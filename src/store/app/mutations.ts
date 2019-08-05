@@ -13,4 +13,8 @@ export const mutations: MutationTree<AppState> = {
   setIntro(state, newIntro: boolean) {
     state.intro = newIntro;
   },
+  setColor(state, newColor: string) {
+    state.color = newColor;
+    localStorage.setItem('color', newColor);
+  },
 };

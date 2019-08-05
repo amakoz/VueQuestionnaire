@@ -72,7 +72,7 @@
     </template>
 
     <footer>
-      <div class="flex items-center justify-center py-4 md:py-6 bg-gray-300">
+      <div class="flex items-center justify-center py-4 md:py-6" :style="{backgroundColor: app.color}">
         <!--<button class="btn btn&#45;&#45;wide btn&#45;&#45;flex relative button-hover transition"-->
                 <!--@click="prevQuestion"-->
                 <!--:disabled="activeQuestion === 1 && numberOfSectionInPart === 1 && partNumber === 1"-->

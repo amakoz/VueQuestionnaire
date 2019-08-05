@@ -24,6 +24,9 @@
             <button @click="animate"class="btn btn--white btn--flex" :style="{borderColor: app.color}">Start <img class="inline-block ml-2" :src="require('@/assets/arrow.svg')" alt="Arrow icon">
             </button>
         </main>
+        <div class="absolute right-0 bottom-0">
+            <chrome-picker :value="app.color" @input="getColor" />
+        </div>
     </div>
 </template>
 
@@ -31,15 +34,26 @@
     import { Component, Vue } from 'vue-property-decorator';
     import { State, Action } from 'vuex-class';
     import { AppState } from '@/store/app/types';
+    import { Chrome } from 'vue-color';
+
     const namespace: string = 'app';
 
-    @Component
+    @Component({
+        components: {
+            'chrome-picker': Chrome
+        }
+    })
     export default class Home extends Vue {
         @State('app') app!: AppState;
         @Action('setIntro', { namespace }) setIntro: any;
+        @Action('setColor', { namespace }) setColor: any;
 
         mounted() {
             this.setIntro(true);
+        }
+
+        getColor(event) {
+          this.setColor(event.hex);
         }
 
         animate() {

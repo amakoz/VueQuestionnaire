@@ -22,4 +22,7 @@ export const actions: ActionTree<AppState, RootState> = {
   setIntro({ commit }, newIntro): any {
     commit('setIntro', newIntro);
   },
+  setColor({ commit }, newColor): any {
+    commit('setColor', newColor);
+  },
 };

@@ -7,7 +7,7 @@ import { RootState } from '../types';
 
 export const state: AppState = {
   intro: true,
-  color: '#ddd',
+  color: localStorage.getItem("color") ? localStorage.getItem("color") : '#ddd',
 };
 
 const namespaced: boolean = true;
