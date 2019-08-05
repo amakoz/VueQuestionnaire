@@ -7,9 +7,20 @@
                      :src="app.intro ? require('@/assets/logo.png') : require('@/assets/logo_alt.png')"
                      ref="themeLogo"
                      alt="Logo">
+                <img v-if="app.intro"
+                     class="absolute h-10 md:h-24 right-0 object-contain max-logo"
+                     :src="require('@/assets/typescript.png')"
+                     alt="Second logo"
+                     ref="companyLogo">
             </div>
         </nav>
-        <router-view class="flex-1"/>
+        <transition name="fade"
+                    mode="out-in"
+                    @beforeLeave="beforeLeave"
+                    @enter="enter"
+                    @afterEnter="afterEnter">
+            <router-view @animate="animate" class="flex-1"/>
+        </transition>
     </div>
 </template>
 
@@ -17,10 +28,38 @@
     import { Component, Vue } from 'vue-property-decorator';
     import { State } from 'vuex-class';
     import { AppState } from '@/store/app/types';
+    import { TimelineLite } from 'gsap';
+    import { Power2 } from 'gsap/EasePack';
 
     @Component
     export default class App extends Vue {
         @State('app') app!: AppState;
+
+        beforeLeave(element) {
+            this.prevHeight = getComputedStyle(element).height;
+        }
+
+        enter(element) {
+            const {height} = getComputedStyle(element);
+            element.style.height = this.prevHeight;
+            setTimeout(() => {
+                element.style.height = height;
+            });
+        }
+
+        afterEnter(element) {
+            element.style.height = 'auto';
+        }
+
+        animate() {
+            let tl = new TimelineLite();
+            tl.to(this.$refs.themeLogo, 0.8, {left: '0', ease: Power2.easeInOut});
+            tl.to(this.$refs.companyLogo, 0.8, {opacity: 0, delay: -0.8, ease: Power2.easeInOut});
+            tl.to(this.$refs.nav, 0.5, {backgroundColor: this.app.color, delay: -0.3});
+            tl.eventCallback("onComplete", () => {
+                this.$router.push({name: 'start'})
+            });
+        }
     }
 </script>
 
